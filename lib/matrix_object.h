@@ -1,23 +1,35 @@
+#include <vector>
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+
+
 #ifndef MATRIX_OBJECT_H
 #define MATRIX_OBJECT_H
 class Matrix
 {
     private:
-    public:
-    
         int rows = 1;
         int columns = 1;
-        double** matrix;
+
+    public:
+        std::vector< std::vector<double> > matrix;
 
         // Constructor
         Matrix(int n_rows, int n_columns);
+        // Destructor
+        ~Matrix();
 
 
         // returns the dimension of the matrix
-        int* getDimension();
+        int getRowNumber();
+        int getColumnNumber();
 
-        // prints the matrix in a good way
+        // prints the matrix in a nice way
         void showMatrix();
+
+        // input by the user of a new matrix
+        void inputMatrix();
 };
 
 #endif

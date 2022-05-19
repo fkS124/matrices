@@ -8,23 +8,50 @@ using std::string;
 
 
 Matrix::Matrix(int n_rows, int n_columns) {
+    // get the number of row and columns
     rows = n_rows;
     columns = n_columns;
+
+    inputMatrix();
 }
 
-int* Matrix::getDimension() {
-    static int dimension[2];
-    dimension[0] = rows;
-    dimension[1] = columns;
-    return dimension;
+Matrix::~Matrix() {
 }
+
+
+int Matrix::getRowNumber() {
+    return rows;
+}
+
+int Matrix::getColumnNumber() {
+    return columns;
+}
+
 
 void Matrix::showMatrix() {
-    for(int row = 0; row <= rows; row++) {
-        for (int col = 0; col <= columns; col++) {
-            string val = std::to_string(matrix[row][col]);
-            std::cout << val;;
+    std::cout << "Your " << rows << "x" << columns << " matrix ------------" << std::endl;
+
+    // loop through rows and columns of the matrix and prints everything
+    for(int row = 0; row < rows; row++) {
+        for (int col = 0; col < columns; col++) {
+            std::cout << matrix[row][col] << "\t";
         };
-        printf("\n");
+        std::cout << "\n";
     };
+
+    std::cout << "----------------------------" << std::endl;
+}
+
+
+void Matrix::inputMatrix() {
+    for (int row = 0; row < rows; row++) {
+        std::vector<double> new_row;
+        for (int col = 0; col < columns; col++) {
+            int col_val;
+            std::cout << "Enter value of row " << row << " & col " << col << " : ";
+            std::cin >> col_val;
+            new_row.push_back(col_val);
+        }
+        matrix.push_back(new_row);
+    }
 }
