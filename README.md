@@ -5,12 +5,12 @@ Matrix computing using C++
 # Compilation
 
 To compile the code using `g++` run :
-```s
+```shell
 g++ main.cpp -o out src/*.cpp
 ```
 
 And then run :
-```s
+```shell
 # on windows
 ./out.exe
 # on linux
