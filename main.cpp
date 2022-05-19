@@ -33,6 +33,22 @@ int main(int argc, char** argv)
             std::cin >> index2;
             add(matrices[index1], matrices[index2]);
         }
+        else if (input == "subtract") {
+            int index1, index2;
+            std::cout << "Enter the index of the first matrix of the substraction : ";
+            std::cin >> index1;
+            std::cout << "Enter the index of the second matrix of the substraction : ";
+            std::cin >> index2;
+            sub(matrices[index1], matrices[index2]);
+        }
+        else if (input == "multk") {
+            int index, k;
+            std::cout << "Enter the index of the matrix to multiply : ";
+            std::cin >> index;
+            std::cout << "Enter the number to multiply the matrix by : ";
+            std::cin >> k;
+            multWithNumber(matrices[index], k);
+        }
         else if (input == "show") {
             int index;
             std::cout << "Enter the index of the matrix you want to show : ";
