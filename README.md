@@ -20,8 +20,9 @@ And then run :
 # Usage
 
 Function | Description
-`input` | Allows you to input a matrix of your choice. (First the dimension, then the values)
-`sum` | Prints the sum of two matrices.
-`sub` | Prints the substraction of two matrices.
-`multk` | Prints the multiplication of a matrix by a real number.
-`exit` | Exits the program
+:-------:| -----------
+`input`  | Allows you to input a matrix of your choice. (First the dimension, then the values)
+`sum`    | Prints the sum of two matrices.
+`sub`    | Prints the substraction of two matrices.
+`multk`  | Prints the multiplication of a matrix by a real number.
+`exit`   | Exits the program
