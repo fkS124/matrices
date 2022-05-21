@@ -11,6 +11,7 @@
 int add(Matrix matrix1, Matrix matrix2); 
 int sub(Matrix matrix1, Matrix matrix2);
 int multWithNumber(Matrix matrix, double n);
+int prodMatrices(Matrix matrix1, Matrix matrix2);
 void showMatrix(std::vector< std::vector<double> > matrix, std::string header);
 
 #endif
