@@ -25,4 +25,5 @@ Function | Description
 `sum`    | Prints the sum of two matrices.
 `sub`    | Prints the substraction of two matrices.
 `multk`  | Prints the multiplication of a matrix by a real number.
+`product`| Prints the product of two matrices (if they're compatible).
 `exit`   | Exits the program
