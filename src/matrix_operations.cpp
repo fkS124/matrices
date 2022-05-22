@@ -101,7 +101,7 @@ int multWithNumber(Matrix matrix, double n) {
 
 
 int prodMatrices(Matrix matrix1, Matrix matrix2) {
-    int r, c, r1, c1, r2, c2;
+    int r1, c1, r2, c2;
     std::vector< std::vector<double> > new_matrix;
     std::vector< std::vector<double> > m1Rows;
     std::vector< std::vector<double> > m2Columns;
@@ -126,19 +126,19 @@ int prodMatrices(Matrix matrix1, Matrix matrix2) {
     }
 
     // get matrix1's rows
-    for (r = 0; r < r1; r++) {
+    for (int r = 0; r < r1; r++) {
         m1Rows.push_back(matrix1.matrix[r]);
     }
 
     // create a 2d-array for storing columns
-    for (c = 0; c < c2; c++) {
+    for (int c = 0; c < c2; c++) {
         std::vector<double> new_columns;
         m2Columns.push_back(new_columns);
     }
 
     // get matrix2's columns
-    for (r = 0; r < r2; r++) {
-        for (c = 0; c < c2; c++) {
+    for (int r = 0; r < r2; r++) {
+        for (int c = 0; c < c2; c++) {
             m2Columns[c].push_back(matrix2.matrix[r][c]);
         }
     }
