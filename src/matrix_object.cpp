@@ -55,3 +55,12 @@ void Matrix::inputMatrix() {
         matrix.push_back(new_row);
     }
 }
+
+
+double Matrix::det() {
+    if (rows == columns == 2) {
+        return matrix[0][0]*matrix[1][1] - matrix[0][1]*matrix[1][0];
+    }
+
+
+}
