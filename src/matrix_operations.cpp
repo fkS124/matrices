@@ -23,7 +23,7 @@ void showMatrix(std::vector< std::vector<double> > matrix, std::string header) {
 
 
 
-int add(Matrix matrixA, Matrix matrixB) {
+int add(Matrix& matrixA, Matrix& matrixB) {
     int r, c;
     std::vector< std::vector<double> > new_matrix;
     std::string header;
@@ -51,7 +51,7 @@ int add(Matrix matrixA, Matrix matrixB) {
 }
 
 
-int sub(Matrix matrixA, Matrix matrixB) {
+int sub(Matrix& matrixA, Matrix& matrixB) {
     int r, c;
     std::vector< std::vector<double> > new_matrix;
     std::string header;
@@ -79,7 +79,7 @@ int sub(Matrix matrixA, Matrix matrixB) {
 }
 
 
-int multWithNumber(Matrix matrix, double n) {
+int multWithNumber(Matrix& matrix, double n) {
     int r, c;
     std::vector< std::vector<double> > new_matrix;
     std::string header;
@@ -100,7 +100,7 @@ int multWithNumber(Matrix matrix, double n) {
 }
 
 
-int prodMatrices(Matrix matrixA, Matrix matrixB) {
+int prodMatrices(Matrix& matrixA, Matrix& matrixB) {
     std::vector< std::vector<double> > new_matrix;
     std::string header;
 
@@ -111,10 +111,7 @@ int prodMatrices(Matrix matrixA, Matrix matrixB) {
     }
 
     // create the resulting 2d-array
-    for (int i = 0; i < matrixA.getRowNumber(); i++) {
-        std::vector<double> new_row;
-        new_matrix.push_back(new_row);
-    }
+    for (int i = 0; i < matrixA.getRowNumber(); i++) {new_matrix.push_back(std::vector<double>());}
 
     // compute the product
     for (int i = 0; i < matrixA.getRowNumber(); i++) {

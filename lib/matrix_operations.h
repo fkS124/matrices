@@ -8,10 +8,10 @@
 #ifndef MATRIX_OPERATIONS_H
 #define MATRIX_OPERATIONS_H
 
-int add(Matrix matrix1, Matrix matrix2); 
-int sub(Matrix matrix1, Matrix matrix2);
-int multWithNumber(Matrix matrix, double n);
-int prodMatrices(Matrix matrix1, Matrix matrix2);
+int add(Matrix& matrixA, Matrix& matrixB); 
+int sub(Matrix& matrixA, Matrix &matrixB);
+int multWithNumber(Matrix& matriA, double n);
+int prodMatrices(Matrix& matrixA, Matrix& matrixB);
 void showMatrix(std::vector< std::vector<double> > matrix, std::string header);
 
 #endif
