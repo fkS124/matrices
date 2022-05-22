@@ -4,7 +4,6 @@
     <b>Matrix computations, using C++.</b>
     <br/>
     <br/>
-    <br/>
 </div>
 
 # Matrices
