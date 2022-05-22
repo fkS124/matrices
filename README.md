@@ -4,6 +4,10 @@
     <b>Matrix computations, using C++.</b>
     <br/>
     <br/>
+    <img src="https://img.shields.io/github/license/fkS124/matrices.svg">
+    <img src="https://img.shields.io/tokei/lines/github.com/fkS124/matrices">
+    <img src="https://img.shields.io/github/repo-size/fkS124/matrices">
+    <br/>
 </div>
 
 # Matrices
