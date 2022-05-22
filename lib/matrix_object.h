@@ -30,6 +30,12 @@ class Matrix
 
         // input by the user of a new matrix
         void inputMatrix();
+
+        // input by the program of a new matrix
+        void rawInputMatrix(std::vector< std::vector<double> > new_matrix);
+
+        // returns the determinant of the matrix
+        double det();
 };
 
 #endif

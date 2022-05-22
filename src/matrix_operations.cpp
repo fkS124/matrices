@@ -5,25 +5,7 @@
 #include "../lib/matrix_object.h"
 
 
-void showMatrix(std::vector< std::vector<double> > matrix, std::string header) {
-    std::cout << header << std::endl;
-    int rows = matrix.size();
-    int columns = matrix[0].size();
-
-    // loop through rows and columns of the matrix and prints everything
-    for(int row = 0; row < rows; row++) {
-        for (int col = 0; col < columns; col++) {
-            std::cout << matrix[row][col] << "\t";
-        };
-        std::cout << "\n";
-    };
-
-    std::cout << "----------------------------" << std::endl;
-}
-
-
-
-int add(Matrix& matrixA, Matrix& matrixB) {
+Matrix add(Matrix& matrixA, Matrix& matrixB) {
     int r, c;
     std::vector< std::vector<double> > new_matrix;
     std::string header;
@@ -33,7 +15,7 @@ int add(Matrix& matrixA, Matrix& matrixB) {
 
     if (dim1[0] != dim2[0] || dim1[1] != dim2[1]) {
         std::cerr << "The two matrices haven't the same dimensions. Suming the two is impossible." << std::endl;
-        return -1;
+        return Matrix(0, 0);
     }
 
     for (r = 0; r < dim1[0]; r++) {
@@ -44,14 +26,13 @@ int add(Matrix& matrixA, Matrix& matrixB) {
         new_matrix.push_back(new_row);
     }
 
-    header = "Result of addition ---------";
-    showMatrix(new_matrix, header);
-
-    return 0;
+    Matrix result(dim1[0], dim1[1]);
+    result.rawInputMatrix(new_matrix);
+    return result;
 }
 
 
-int sub(Matrix& matrixA, Matrix& matrixB) {
+Matrix sub(Matrix& matrixA, Matrix& matrixB) {
     int r, c;
     std::vector< std::vector<double> > new_matrix;
     std::string header;
@@ -61,7 +42,7 @@ int sub(Matrix& matrixA, Matrix& matrixB) {
 
     if (dim1[0] != dim2[0] || dim1[1] != dim2[1]) {
         std::cerr << "The two matrices haven't the same dimensions. Substracting the two is impossible." << std::endl;
-        return -1;
+        return Matrix(0, 0);
     }
 
     for (r = 0; r < dim1[0]; r++) {
@@ -72,14 +53,13 @@ int sub(Matrix& matrixA, Matrix& matrixB) {
         new_matrix.push_back(new_row);
     }
 
-    header = "Result of substraction -----";
-    showMatrix(new_matrix, header);
-
-    return 0;
+    Matrix result(dim1[0], dim1[1]);
+    result.rawInputMatrix(new_matrix);
+    return result;
 }
 
 
-int multWithNumber(Matrix& matrix, double n) {
+Matrix multWithNumber(Matrix& matrix, double n) {
     int r, c;
     std::vector< std::vector<double> > new_matrix;
     std::string header;
@@ -93,21 +73,20 @@ int multWithNumber(Matrix& matrix, double n) {
         new_matrix.push_back(new_row);
     }
 
-    header = "Result of the multiplication";
-    showMatrix(new_matrix, header);
-
-    return 0;
+    Matrix result(matrix.getRowNumber(), matrix.getRowNumber());
+    result.rawInputMatrix(new_matrix);
+    return result;
 }
 
 
-int prodMatrices(Matrix& matrixA, Matrix& matrixB) {
+Matrix prodBetweenMatrices(Matrix& matrixA, Matrix& matrixB) {
     std::vector< std::vector<double> > new_matrix;
     std::string header;
 
     // check compatibility of the two matrices (M1 must have the same number of columns that M2 have of rows.)
     if (matrixA.getColumnNumber() != matrixB.getRowNumber()) {
         std::cerr << "The first matrix's number of column is not equal \n to the second's number of row. Multiplication is impossible" << std::endl;
-        return -1;
+        return Matrix(0, 0);
     }
 
     // create the resulting 2d-array
@@ -124,7 +103,7 @@ int prodMatrices(Matrix& matrixA, Matrix& matrixB) {
         }
     }
 
-    header = "The result of the product is :";
-    showMatrix(new_matrix, header);
-    return 0;
+    Matrix result(matrixA.getRowNumber(), matrixB.getColumnNumber());
+    result.rawInputMatrix(new_matrix);
+    return result;
 }

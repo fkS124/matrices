@@ -11,8 +11,6 @@ Matrix::Matrix(int n_rows, int n_columns) {
     // get the number of row and columns
     rows = n_rows;
     columns = n_columns;
-
-    inputMatrix();
 }
 
 Matrix::~Matrix() {
@@ -54,6 +52,11 @@ void Matrix::inputMatrix() {
         }
         matrix.push_back(new_row);
     }
+}
+
+
+void Matrix::rawInputMatrix(std::vector< std::vector<double> > new_matrix) {
+    matrix = new_matrix;
 }
 
 
