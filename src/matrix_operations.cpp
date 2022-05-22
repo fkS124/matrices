@@ -23,23 +23,23 @@ void showMatrix(std::vector< std::vector<double> > matrix, std::string header) {
 
 
 
-int add(Matrix matrix1, Matrix matrix2) {
+int add(Matrix matrixA, Matrix matrixB) {
     int r, c;
     std::vector< std::vector<double> > new_matrix;
     std::string header;
     
-    static int dim1[2] = {matrix1.getRowNumber(), matrix1.getColumnNumber()};
-    static int dim2[2] = {matrix2.getRowNumber(), matrix2.getColumnNumber()};
+    static int dim1[2] = {matrixA.getRowNumber(), matrixA.getColumnNumber()};
+    static int dim2[2] = {matrixB.getRowNumber(), matrixB.getColumnNumber()};
 
     if (dim1[0] != dim2[0] || dim1[1] != dim2[1]) {
-        std::cout << "The two matrices haven't the same dimensions. Suming the two is impossible." << std::endl;
+        std::cerr << "The two matrices haven't the same dimensions. Suming the two is impossible." << std::endl;
         return -1;
     }
 
     for (r = 0; r < dim1[0]; r++) {
         std::vector<double> new_row;
         for (c = 0; c < dim1[1]; c++) {
-            new_row.push_back(matrix1.matrix[r][c] + matrix2.matrix[r][c]);
+            new_row.push_back(matrixA.matrix[r][c] + matrixB.matrix[r][c]);
         };
         new_matrix.push_back(new_row);
     }
@@ -51,23 +51,23 @@ int add(Matrix matrix1, Matrix matrix2) {
 }
 
 
-int sub(Matrix matrix1, Matrix matrix2) {
+int sub(Matrix matrixA, Matrix matrixB) {
     int r, c;
     std::vector< std::vector<double> > new_matrix;
     std::string header;
     
-    static int dim1[2] = {matrix1.getRowNumber(), matrix1.getColumnNumber()};
-    static int dim2[2] = {matrix2.getRowNumber(), matrix2.getColumnNumber()};
+    static int dim1[2] = {matrixA.getRowNumber(), matrixA.getColumnNumber()};
+    static int dim2[2] = {matrixB.getRowNumber(), matrixB.getColumnNumber()};
 
     if (dim1[0] != dim2[0] || dim1[1] != dim2[1]) {
-        std::cout << "The two matrices haven't the same dimensions. Substracting the two is impossible." << std::endl;
+        std::cerr << "The two matrices haven't the same dimensions. Substracting the two is impossible." << std::endl;
         return -1;
     }
 
     for (r = 0; r < dim1[0]; r++) {
         std::vector<double> new_row;
         for (c = 0; c < dim1[1]; c++) {
-            new_row.push_back(matrix1.matrix[r][c] - matrix2.matrix[r][c]);
+            new_row.push_back(matrixA.matrix[r][c] - matrixB.matrix[r][c]);
         };
         new_matrix.push_back(new_row);
     }
@@ -100,56 +100,30 @@ int multWithNumber(Matrix matrix, double n) {
 }
 
 
-int prodMatrices(Matrix matrix1, Matrix matrix2) {
-    int r1, c1, r2, c2;
+int prodMatrices(Matrix matrixA, Matrix matrixB) {
     std::vector< std::vector<double> > new_matrix;
-    std::vector< std::vector<double> > m1Rows;
-    std::vector< std::vector<double> > m2Columns;
     std::string header;
-    
-    // get dimensions of matrices
-    r1 = matrix1.getRowNumber();
-    c1 = matrix1.getColumnNumber();
-    r2 = matrix2.getRowNumber();
-    c2 = matrix2.getColumnNumber();
 
     // check compatibility of the two matrices (M1 must have the same number of columns that M2 have of rows.)
-    if (c1 != r2) {
-        std::cout << "The first matrix's number of column is not equal \n to the second's number of row. Multiplication is impossible" << std::endl;
+    if (matrixA.getColumnNumber() != matrixB.getRowNumber()) {
+        std::cerr << "The first matrix's number of column is not equal \n to the second's number of row. Multiplication is impossible" << std::endl;
         return -1;
     }
 
     // create the resulting 2d-array
-    for (int i = 0; i < r1; i++) {
+    for (int i = 0; i < matrixA.getRowNumber(); i++) {
         std::vector<double> new_row;
         new_matrix.push_back(new_row);
     }
 
-    // get matrix1's rows
-    for (int r = 0; r < r1; r++) {
-        m1Rows.push_back(matrix1.matrix[r]);
-    }
-
-    // create a 2d-array for storing columns
-    for (int c = 0; c < c2; c++) {
-        std::vector<double> new_columns;
-        m2Columns.push_back(new_columns);
-    }
-
-    // get matrix2's columns
-    for (int r = 0; r < r2; r++) {
-        for (int c = 0; c < c2; c++) {
-            m2Columns[c].push_back(matrix2.matrix[r][c]);
-        }
-    }
-
-    for (int a = 0; a < m1Rows.size(); a++) {
-        for (int z = 0; z < m2Columns.size(); z++) {
-            double new_value = 0;
-            for (int b = 0; b < m1Rows[a].size(); b++) {
-                new_value += m1Rows[a][b] * m2Columns[z][b];
+    // compute the product
+    for (int i = 0; i < matrixA.getRowNumber(); i++) {
+        for (int j = 0; j < matrixB.getColumnNumber(); j++) {
+            double sum = 0; 
+            for (int k = 0; k < matrixA.getColumnNumber(); k++) {
+                sum += matrixA.matrix[i][k] * matrixB.matrix[k][j];
             }
-            new_matrix[a].push_back(new_value);
+            new_matrix[i].push_back(sum);
         }
     }
 
