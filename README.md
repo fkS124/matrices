@@ -1,6 +1,7 @@
 <div align="center">
-<img src="./doc/header_image.png">
-
+    <img src="./doc/header_image.png">
+    <br/>
+    <b>Matrix computations, using C++.</b>
 </div>
 
 You can store matrices in the memory, and then make calculations on them. When you input a matrix using the `input` command, it will be appended to the list of matrices. Then to do calculations, you'll have to pass the index of the matrices you want to deal with. To make sure it's the right index, you can use the command `show` and then pass the index, to verify the values.
