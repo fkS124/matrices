@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="./doc/header_image.png">
+    <img src="./doc/logo.png">
     <br/>
     <b>Matrix computations, using C++.</b>
     <br/>
