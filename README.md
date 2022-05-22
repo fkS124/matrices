@@ -1,4 +1,4 @@
-<div align="centered">
+<div align="center">
 <img src="./doc/header_image.png">
 
 </div>
