@@ -41,4 +41,5 @@ Function | Description
 `sub`    | Prints the substraction of two matrices.
 `multk`  | Prints the multiplication of a matrix by a real number.
 `product`| Prints the product of two matrices (if they're compatible).
+`det`    | Prints the determinant of the given matrix (if it's a square matrix).
 `exit`   | Exits the program
