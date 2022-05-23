@@ -12,5 +12,6 @@ Matrix add(Matrix& matrixA, Matrix& matrixB);
 Matrix sub(Matrix& matrixA, Matrix& matrixB);
 Matrix multWithNumber(Matrix& matriA, double n);
 Matrix prodBetweenMatrices(Matrix& matrixA, Matrix& matrixB);
+Matrix matrixInversion(Matrix& matrix);
 
 #endif

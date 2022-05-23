@@ -107,3 +107,20 @@ Matrix prodBetweenMatrices(Matrix& matrixA, Matrix& matrixB) {
     result.rawInputMatrix(new_matrix);
     return result;
 }
+
+
+Matrix matrixInversion(Matrix& matrix) {
+
+    double det = matrix.det();
+    std::vector< std::vector<double> > result;
+
+    if (matrix.getColumnNumber() == matrix.getRowNumber() == 2) {
+        result.push_back(std::vector<double>(matrix.matrix[1][1]/det, -1*matrix.matrix[0][1]/det));
+        result.push_back(std::vector<double>(-1*matrix.matrix[1][0]/det, matrix.matrix[0][0]/det));
+        Matrix resultMatrix(matrix.getRowNumber(), matrix.getColumnNumber());
+        resultMatrix.rawInputMatrix(result);
+        return resultMatrix;    
+    }
+
+    
+}
