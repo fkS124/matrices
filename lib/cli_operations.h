@@ -8,10 +8,11 @@
 #ifndef MATRIX_OPERATIONS_H
 #define MATRIX_OPERATIONS_H
 
-Matrix addMatrices(Matrix& matrixA, Matrix& matrixB, bool save); 
-Matrix subMatrices(Matrix& matrixA, Matrix &matrixB, bool save);
-Matrix multkMatrix(Matrix& matriA, double n, bool save);
-Matrix prodMatrices(Matrix& matrixA, Matrix& matrixB, bool save);
+void addMatrices(Matrix& matrixA, Matrix& matrixB, bool save); 
+void subMatrices(Matrix& matrixA, Matrix &matrixB, bool save);
+void multkMatrix(Matrix& matriA, double n, bool save);
+void prodMatrices(Matrix& matrixA, Matrix& matrixB, bool save);
 void showMatrix(std::vector< std::vector<double> > matrix, std::string header);
+void detMatrix(Matrix& matrix);
 
 #endif

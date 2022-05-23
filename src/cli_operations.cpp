@@ -23,45 +23,46 @@ void showMatrix(std::vector< std::vector<double> > matrix, std::string header) {
 }
 
 
-Matrix addMatrices(Matrix& matrixA, Matrix& matrixB, bool save) {
+void addMatrices(Matrix& matrixA, Matrix& matrixB, bool save) {
     Matrix result = add(matrixA, matrixB);
     showMatrix(result.matrix, std::string("The result of the sum is :"));
 
     if (save == true) {
-        return result;
+        // save the result
     }
-    return Matrix(0, 0);
 }
 
 
-Matrix subMatrices(Matrix& matrixA, Matrix& matrixB, bool save) {
+void subMatrices(Matrix& matrixA, Matrix& matrixB, bool save) {
     Matrix result = sub(matrixA, matrixB);
     showMatrix(result.matrix, std::string("The result of the substraction is :"));
 
     if (save == true) {
-        return result;
+        // save the result
     }
-    return Matrix(0, 0);
 }
 
 
-Matrix multkMatrix(Matrix& matrixA, double n, bool save) {
+void multkMatrix(Matrix& matrixA, double n, bool save) {
     Matrix result = multWithNumber(matrixA, n);
     showMatrix(result.matrix, std::string("The result of the multiplication is :"));
 
     if (save == true) {
-        return result;
+        // save the result
     }
-    return Matrix(0, 0);
 }
 
 
-Matrix prodMatrices(Matrix& matrixA, Matrix& matrixB, bool save) {
+void prodMatrices(Matrix& matrixA, Matrix& matrixB, bool save) {
     Matrix result = prodBetweenMatrices(matrixA, matrixB);
     showMatrix(result.matrix, std::string("The result of the product is :"));
 
     if (save == true) {
-        return result;
+        // save the result
     }
-    return Matrix(0, 0);
 }
+
+
+void detMatrix(Matrix& matrix) {
+    std::cout << "The determinant of this matrix is : " << matrix.det() << std::endl;
+} 

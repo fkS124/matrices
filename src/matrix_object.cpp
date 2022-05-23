@@ -3,8 +3,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
+#include <cmath>
+#include <algorithm>
 
 using std::string;
+
+const double SMALL = 1.0E-30;
 
 
 Matrix::Matrix(int n_rows, int n_columns) {
@@ -62,8 +66,37 @@ void Matrix::rawInputMatrix(std::vector< std::vector<double> > new_matrix) {
 
 double Matrix::det() {
     if (rows == columns == 2) {
-        return matrix[0][0]*matrix[1][1] - matrix[0][1]*matrix[1][0];
+        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
     }
 
+    int n = matrix.size();
+    double det = 1;
 
+    for (int i = 0; i < n - 1; i++) {
+        int r = i;
+        double maxA = abs(matrix[i][i]);
+        for (int k = i + 1; k < n; k++) {
+            double val = abs( matrix[k][i]);
+            if (val > maxA) {
+                r = k;
+                maxA = val;
+            }
+        }
+        if ( r != i ) {
+            for (int j = i; j < n; j++) std::swap( matrix[i][j], matrix[r][j] );
+            det = -det;
+        }
+
+        double pivot = matrix[i][i];
+        if (abs(pivot) < SMALL) return 0.0;
+
+        for (int r = i + 1; r < n; r++) {
+            double multiple = matrix[r][i] / pivot;
+            for (int j = i; j < n; j++) matrix[r][j] -= multiple * matrix[i][j];
+        }
+        det *= pivot;
+    }
+    det *= matrix[n-1][n-1];
+
+    return det;
 }
