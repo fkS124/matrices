@@ -108,19 +108,101 @@ Matrix prodBetweenMatrices(Matrix& matrixA, Matrix& matrixB) {
     return result;
 }
 
+void getCofactor(Matrix& matrix, Matrix& temp, int p, int q) {
+    int i = 0, j = 0, n = matrix.getRowNumber();
+
+    for (int row = 0; row < n; row++) {
+        for (int col = 0; col < n; col++) {
+            if (row != p && col != q) {
+                temp.matrix[i][j++] = matrix.matrix[row][col];
+
+                if (j == n - 1) {
+                    j = 0;
+                    i++;
+                }
+            }
+        }
+    }
+}
+
+
+void adjoint(Matrix& matrix, Matrix& adj) {
+    int n = matrix.getRowNumber();
+    if (n == 1) {
+        adj.matrix[0][0] = 1;
+        return;
+    }
+
+    int sign = 1;
+
+    // generate the temp matrix 
+    Matrix temp(n, n);
+    std::vector< std::vector<double> > temp_matrix;
+    for (int i = 0; i < n; i++) {
+        std::vector<double> new_row;
+        for (int j = 0; j < n; j++) {
+            new_row.push_back(0);
+        }
+        temp_matrix.push_back(new_row);
+    }
+    temp.rawInputMatrix(temp_matrix);
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            getCofactor(matrix, temp, i, j);
+
+            sign = ((i+j)%2==0)? 1: -1;
+
+            std::cout << temp.det() << std::endl;
+            adj.matrix[j][i] = sign*temp.det();
+        }
+    }
+}
+
 
 Matrix matrixInversion(Matrix& matrix) {
 
     double det = matrix.det();
     std::vector< std::vector<double> > result;
 
-    if (matrix.getColumnNumber() == matrix.getRowNumber() == 2) {
+    if (det == 0 || matrix.getColumnNumber() != matrix.getRowNumber()) {
+        std::cerr << "The matrix is singular, no inverse can be found." << std::endl;
+        return Matrix(0, 0);
+    }
+
+    int n = matrix.getRowNumber();
+
+    /* if (n == 2) {
         result.push_back(std::vector<double>(matrix.matrix[1][1]/det, -1*matrix.matrix[0][1]/det));
         result.push_back(std::vector<double>(-1*matrix.matrix[1][0]/det, matrix.matrix[0][0]/det));
         Matrix resultMatrix(matrix.getRowNumber(), matrix.getColumnNumber());
         resultMatrix.rawInputMatrix(result);
         return resultMatrix;    
+    } */
+
+    Matrix adj(n, n);
+    std::vector< std::vector<double> > temp_matrix;
+    for (int i = 0; i < n; i++) {
+        std::vector<double> new_row;
+        for (int j = 0; j < n; j++) {
+            new_row.push_back(0);
+        }
+        temp_matrix.push_back(new_row);
+    }
+    adj.rawInputMatrix(temp_matrix);
+
+    std::cout << adj.matrix[0][0] << std::endl;
+    adjoint(matrix, adj);
+    std::cout << adj.matrix[0][0] << std::endl;
+
+    for (int i = 0; i < n; i++) {
+        std::vector<double> new_row;
+        for (int j = 0; j < n; j++) new_row.push_back(adj.matrix[i][j]/double(det));
+        result.push_back(new_row);
     }
 
-    
+    Matrix resulting_matrix(n, n);
+    resulting_matrix.rawInputMatrix(result);
+    return resulting_matrix;
 }
+

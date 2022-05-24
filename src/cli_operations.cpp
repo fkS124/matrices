@@ -7,6 +7,7 @@
 
 
 void showMatrix(std::vector< std::vector<double> > matrix, std::string header) {
+    std::cout << "----------------------------" << std::endl;
     std::cout << header << std::endl;
     int rows = matrix.size();
     int columns = matrix[0].size();
@@ -66,3 +67,14 @@ void prodMatrices(Matrix& matrixA, Matrix& matrixB, bool save) {
 void detMatrix(Matrix& matrix) {
     std::cout << "The determinant of this matrix is : " << matrix.det() << std::endl;
 } 
+
+
+void invMatrix(Matrix& matrix, bool save) {
+    Matrix result = matrixInversion(matrix);
+    if (result.getRowNumber() != 0 && result.getColumnNumber() != 0)
+        showMatrix(result.matrix, std::string("The inverted matrix is :"));
+
+    if (save == true) {
+        // save the result
+    }
+}

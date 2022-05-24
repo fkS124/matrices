@@ -5,7 +5,6 @@
 #include "lib/cli_operations.h"
 #include <vector>
 
-
 int main(int argc, char** argv) 
 {
     // create the array of matrices
@@ -32,7 +31,7 @@ int main(int argc, char** argv)
             std::cin >> index1;
             std::cout << "Enter the index of the second matrix of the sum : ";
             std::cin >> index2;
-            if (0 <= index1 < matrices.size() || 0 <= index2 < matrices.size())
+            if (0 <= index1 && index1 < matrices.size() || 0 <= index2 && index2 < matrices.size())
                 addMatrices(matrices[index1], matrices[index2], false);
             else
                 std::cerr << "Error: Passed indexes are incorrect." << std::endl;
@@ -43,7 +42,7 @@ int main(int argc, char** argv)
             std::cin >> index1;
             std::cout << "Enter the index of the second matrix of the substraction : ";
             std::cin >> index2;
-            if (0 <= index1 < matrices.size() || 0 <= index2 < matrices.size())
+            if (0 <= index1 && index1 < matrices.size() || 0 <= index2 && index2 < matrices.size())
                 subMatrices(matrices[index1], matrices[index2], false);
             else
                 std::cerr << "Error: Passed indexes are incorrect." << std::endl;
@@ -54,7 +53,7 @@ int main(int argc, char** argv)
             std::cin >> index;
             std::cout << "Enter the number to multiply the matrix by : ";
             std::cin >> k;
-            if (0 <= index < matrices.size())
+            if (0 <= index && index < matrices.size())
                 multkMatrix(matrices[index], k, false);
             else
                 std::cerr << "Error: Passed index is incorrect." << std::endl;
@@ -65,7 +64,7 @@ int main(int argc, char** argv)
             std::cin >> index1;
             std::cout << "Enter the index of the second matrix of the product : ";
             std::cin >> index2;
-            if (0 <= index1 < matrices.size() || 0 <= index2 < matrices.size())
+            if (0 <= index1 && index1 < matrices.size() || 0 <= index2 && index2 < matrices.size())
                 prodMatrices(matrices[index1], matrices[index2], false);
             else
                 std::cerr << "Error: Passed indexes are incorrect." << std::endl;
@@ -74,7 +73,7 @@ int main(int argc, char** argv)
             int index;
             std::cout << "Enter the index of the matrix you want to show : ";
             std::cin >> index;
-            if (0 <= index < matrices.size())
+            if (0 <= index && index < matrices.size())
                 matrices[index].showMatrix();
             else 
                 std::cerr << "Error: Passed index is incorrect." << std::endl;
@@ -87,6 +86,15 @@ int main(int argc, char** argv)
                 std::cerr << "Error: passed matrix is invalid." << std::endl;
             else 
                 detMatrix(matrices[index]);
+        }
+        else if (input == "inv") {
+            int index;
+            std::cout << "Enter the index of the matrix you want to show : ";
+            std::cin >> index;
+            if (0 <= index && index < matrices.size())
+                invMatrix(matrices[index], false);
+            else
+                std::cerr << "Error: passed index is incorrect." << std::endl;
         }
         else {
             if (input != "exit")
