@@ -66,7 +66,6 @@ void Matrix::rawInputMatrix(const std::vector< std::vector<double> > &new_matrix
 
 double Matrix::det() {
     if (rows == 2 && columns == 2) {
-        std::cout << matrix[0][0] << " "  << matrix[1][1] << " "  << matrix[0][1] << " " << matrix[1][0] << std::endl;
         return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
     }
 
@@ -91,9 +90,9 @@ double Matrix::det() {
         double pivot = matrix[i][i];
         if (abs(pivot) < SMALL) return 0.0;
 
-        for (int r = i + 1; r < n; r++) {
-            double multiple = matrix[r][i] / pivot;
-            for (int j = i; j < n; j++) matrix[r][j] -= multiple * matrix[i][j];
+        for (int z = i + 1; z < n; z++) {
+            double multiple = matrix[z][i] / pivot;
+            for (int j = i; j < n; j++) matrix[z][j] -= multiple * matrix[i][j];
         }
         det *= pivot;
     }

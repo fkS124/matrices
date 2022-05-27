@@ -6,7 +6,7 @@
 #include "../lib/matrix_operations.h"
 
 
-void showMatrix(std::vector< std::vector<double> > matrix, const std::string header) {
+void showMatrix(std::vector< std::vector<double> > matrix, const std::string &header) {
     std::cout << "----------------------------" << std::endl;
     std::cout << header << std::endl;
     int rows = matrix.size();
