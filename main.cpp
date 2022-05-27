@@ -16,7 +16,7 @@ matrix_list matrices;
 
 word_list scanInput(const string &input);
 string getFunc(word_list &command);
-int execFunc(word_list &command);
+int execFunc(const word_list &command);
 
 int main(int argc, char** argv) 
 {
@@ -80,7 +80,7 @@ string getFunc(word_list &command) {
 }
 
 
-int execFunc(word_list &command) {
+int execFunc(const word_list &command) {
     string mainCommand = command[0];
 
     if (mainCommand == "input") {
