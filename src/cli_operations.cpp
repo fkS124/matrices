@@ -64,8 +64,8 @@ void prodMatrices(Matrix& matrixA, Matrix& matrixB, bool save) {
 }
 
 
-void detMatrix(Matrix& matrix) {
-    std::cout << "The determinant of this matrix is : " << matrix.det() << std::endl;
+void determinantMatrix(Matrix& matrix) {
+    std::cout << "The determinant of this matrix is : " << detMatrix(matrix) << std::endl;
 } 
 
 

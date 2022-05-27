@@ -2,202 +2,180 @@
 #include <vector>
 #include <stdio.h>
 #include <stdlib.h>
+#include <cmath>
 #include "../lib/matrix_object.h"
 
 
-Matrix add(Matrix& matrixA, Matrix& matrixB) {
-    int r, c;
-    std::vector< std::vector<double> > new_matrix;
-    
-    static int dim1[2] = {matrixA.getRowNumber(), matrixA.getColumnNumber()};
-    static int dim2[2] = {matrixB.getRowNumber(), matrixB.getColumnNumber()};
+using vec = std::vector<double>;
+using matrix_t = std::vector<vec>;
 
-    if (dim1[0] != dim2[0] || dim1[1] != dim2[1]) {
+
+Matrix add(Matrix& A, Matrix& B) {
+    // Compute the sum of two matrices
+    Matrix result(A.getRowNumber(), A.getColumnNumber());
+
+    if (A.getRowNumber() != B.getRowNumber() || A.getColumnNumber() != B.getColumnNumber()) {
         std::cerr << "The two matrices haven't the same dimensions. Suming the two is impossible." << std::endl;
         return Matrix(0, 0);
     }
 
-    for (r = 0; r < dim1[0]; r++) {
-        std::vector<double> new_row;
-        for (c = 0; c < dim1[1]; c++) {
-            new_row.push_back(matrixA.matrix[r][c] + matrixB.matrix[r][c]);
-        };
-        new_matrix.push_back(new_row);
+    for (int r = 0; r < result.getRowNumber(); r++) {
+        for (int c = 0; c < result.getColumnNumber(); c++) result.matrix[r][c] = A.matrix[r][c] + B.matrix[r][c];
     }
-
-    Matrix result(dim1[0], dim1[1]);
-    result.rawInputMatrix(new_matrix);
     return result;
 }
 
 
-Matrix sub(Matrix& matrixA, Matrix& matrixB) {
-    int r, c;
-    std::vector< std::vector<double> > new_matrix;
-    
-    static int dim1[2] = {matrixA.getRowNumber(), matrixA.getColumnNumber()};
-    static int dim2[2] = {matrixB.getRowNumber(), matrixB.getColumnNumber()};
+Matrix sub(Matrix& A, Matrix& B) {
+    // Compute the substraction between two matrices
+    Matrix result(A.getRowNumber(), A.getColumnNumber());
 
-    if (dim1[0] != dim2[0] || dim1[1] != dim2[1]) {
-        std::cerr << "The two matrices haven't the same dimensions. Substracting the two is impossible." << std::endl;
+    if (A.getRowNumber() != B.getRowNumber() || A.getColumnNumber() != B.getColumnNumber()) {
+        std::cerr << "The two matrices haven't the same dimensions. Suming the two is impossible." << std::endl;
         return Matrix(0, 0);
     }
 
-    for (r = 0; r < dim1[0]; r++) {
-        std::vector<double> new_row;
-        for (c = 0; c < dim1[1]; c++) {
-            new_row.push_back(matrixA.matrix[r][c] - matrixB.matrix[r][c]);
-        };
-        new_matrix.push_back(new_row);
+    for (int r = 0; r < result.getRowNumber(); r++) {
+        for (int c = 0; c < result.getColumnNumber(); c++) result.matrix[r][c] = A.matrix[r][c] - B.matrix[r][c];
     }
-
-    Matrix result(dim1[0], dim1[1]);
-    result.rawInputMatrix(new_matrix);
     return result;
 }
 
 
-Matrix multWithNumber(Matrix& matrix, double n) {
-    int r, c;
-    std::vector< std::vector<double> > new_matrix;
-    
+Matrix multWithNumber(Matrix& A, double n) {
+    // Compute the product between a real number and a matrix
+    Matrix result(A.getRowNumber(), A.getColumnNumber());
 
-    for (r = 0; r < matrix.getRowNumber(); r++) {
-        std::vector<double> new_row;
-        for (c = 0; c < matrix.getColumnNumber(); c++) {
-            new_row.push_back(matrix.matrix[r][c] * n);
-        };
-        new_matrix.push_back(new_row);
+    for (int r = 0; r < A.getRowNumber(); r++) {
+        for (int c = 0; c < A.getColumnNumber(); c++) result.matrix[r][c] = A.matrix[r][c] * n;
     }
-
-    Matrix result(matrix.getRowNumber(), matrix.getRowNumber());
-    result.rawInputMatrix(new_matrix);
     return result;
 }
 
 
-Matrix prodBetweenMatrices(Matrix& matrixA, Matrix& matrixB) {
-    std::vector< std::vector<double> > new_matrix;
+Matrix prodBetweenMatrices(Matrix& A, Matrix& B) {
+    // Compute the product between two matrices
+    Matrix result(A.getRowNumber(), B.getColumnNumber());
 
     // check compatibility of the two matrices (M1 must have the same number of columns that M2 have of rows.)
-    if (matrixA.getColumnNumber() != matrixB.getRowNumber()) {
+    if (A.getColumnNumber() != B.getRowNumber()) {
         std::cerr << "The first matrix's number of column is not equal \n to the second's number of row. Multiplication is impossible" << std::endl;
         return Matrix(0, 0);
     }
 
-    // create the resulting 2d-array
-    for (int i = 0; i < matrixA.getRowNumber(); i++) {new_matrix.push_back(std::vector<double>());}
-
     // compute the product
-    for (int i = 0; i < matrixA.getRowNumber(); i++) {
-        for (int j = 0; j < matrixB.getColumnNumber(); j++) {
+    for (int i = 0; i < A.getRowNumber(); i++) {
+        for (int j = 0; j < B.getColumnNumber(); j++) {
             double sum = 0; 
-            for (int k = 0; k < matrixA.getColumnNumber(); k++) {
-                sum += matrixA.matrix[i][k] * matrixB.matrix[k][j];
+            for (int k = 0; k < A.getColumnNumber(); k++) {
+                sum += A.matrix[i][k] * B.matrix[k][j];
             }
-            new_matrix[i].push_back(sum);
+            result.matrix[i][j] = sum;
         }
     }
 
-    Matrix result(matrixA.getRowNumber(), matrixB.getColumnNumber());
-    result.rawInputMatrix(new_matrix);
     return result;
 }
 
-void getCofactor(Matrix& matrix, Matrix& temp, int p, int q) {
-    int i = 0, j = 0, n = matrix.getRowNumber();
 
-    for (int row = 0; row < n; row++) {
-        for (int col = 0; col < n; col++) {
-            if (row != p && col != q) {
-                temp.matrix[i][j++] = matrix.matrix[row][col];
+Matrix transpose(Matrix &A) {
+    // Transpose the given matrix
+    Matrix result(A.getRowNumber(), A.getColumnNumber());
 
-                if (j == n - 1) {
-                    j = 0;
-                    i++;
+    for (int i = 0; i < result.getRowNumber(); i++) {
+        for (int j = 0; j < result.getColumnNumber(); j++) {
+            result.matrix[j][i] = A.matrix[i][j];
+        }
+    }
+
+    return result;
+}
+
+
+Matrix smallerMatrix(Matrix &matrix, int i, int j) {
+    // Get a smaller matrix (useful for calculating inverse and determinant)
+    Matrix result(matrix.getRowNumber()-1, matrix.getColumnNumber()-1);
+
+    int r = 0, c = 0;
+    for (int a = 0; a < matrix.getRowNumber(); a++) {
+        for (int b = 0; b < matrix.getColumnNumber(); b++) {
+            if (i != a && j != b) {
+                result.matrix[r][c] = matrix.matrix[a][b];
+                c++;
+                if (c == result.getColumnNumber()) {
+                    r++;
+                    c = 0;
                 }
+                
             }
         }
     }
+
+    return result;
 }
 
 
-void adjoint(Matrix& matrix, Matrix& adj) {
-    int sign, n = matrix.getRowNumber();
+double detMatrix(Matrix matrix) {
+    // Calculates the determinant of a given matrix
+    std::vector< std::vector<double> > m = matrix.matrix;
 
-    if (n == 1) {
-        adj.matrix[0][0] = 1;
-        return;
+    if (matrix.getRowNumber() == 2 && matrix.getColumnNumber() == 2) {
+        return m[0][0]*m[1][1]-m[0][1]*m[1][0];
     }
 
-    // generate the temp matrix 
-    Matrix temp(n, n);
-    std::vector< std::vector<double> > temp_matrix;
-    for (int i = 0; i < n; i++) {
-        std::vector<double> new_row;
-        for (int j = 0; j < n; j++) {
-            new_row.push_back(0);
-        }
-        temp_matrix.push_back(new_row);
+    double det = 0;
+    for (int c = 0; c < m.size(); c++) {
+        Matrix smaller = smallerMatrix(matrix, 0, c);
+        det += (pow((-1), c)) * m[0][c] * detMatrix(smaller);
     }
-    temp.rawInputMatrix(temp_matrix);
-
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            getCofactor(matrix, temp, i, j);
-
-            sign = ((i+j)%2==0)? 1: -1;
-
-            std::cout << temp.det() << std::endl;
-            adj.matrix[j][i] = sign*temp.det();
-        }
-    }
+    return det;
 }
 
 
-Matrix matrixInversion(Matrix& matrix) {
+Matrix matrixInversion(Matrix &matrix)
+{
+    // Calculates if possible the inverse of a matrix
+    int n = matrix.getRowNumber();
+    Matrix result(n, n);
+    matrix_t A = result.matrix;
+    matrix_t m = matrix.matrix;
 
-    double det = matrix.det();
-    std::vector< std::vector<double> > result;
-
-    if (det == 0 || matrix.getColumnNumber() != matrix.getRowNumber()) {
-        std::cerr << "The matrix is singular, no inverse can be found." << std::endl;
+    double det = detMatrix(matrix);
+    if (det == 0) {
+        std::cerr << "Inversion is impossible" << std::endl;
         return Matrix(0, 0);
     }
 
-    int n = matrix.getRowNumber();
 
-    /* if (n == 2) {
-        result.push_back(std::vector<double>(matrix.matrix[1][1]/det, -1*matrix.matrix[0][1]/det));
-        result.push_back(std::vector<double>(-1*matrix.matrix[1][0]/det, matrix.matrix[0][0]/det));
-        Matrix resultMatrix(matrix.getRowNumber(), matrix.getColumnNumber());
-        resultMatrix.rawInputMatrix(result);
-        return resultMatrix;    
-    } */
-
-    Matrix adj(n, n);
-    std::vector< std::vector<double> > temp_matrix;
-    for (int i = 0; i < n; i++) {
-        std::vector<double> new_row;
-        for (int j = 0; j < n; j++) {
-            new_row.push_back(0);
+    if (n == 2) {
+        A[0][0] = m[1][1]/det;
+        A[0][1] = -1*m[0][1]/det;
+        A[1][0] = -1*m[1][0]/det;
+        A[1][1] = m[0][0]/det;
+    }
+    else {
+        matrix_t cofactors;
+        for (int r = 0; r < n; r++) {
+            vec cofactorRow;
+            for (int c = 0; c < n; c++) {
+                Matrix minor = smallerMatrix(matrix, r, c);
+                cofactorRow.push_back(pow(-1, r+c) * detMatrix(minor));
+            }
+            cofactors.push_back(cofactorRow);
         }
-        temp_matrix.push_back(new_row);
+
+        Matrix cofactorMatrix(cofactors.size(), cofactors[0].size());
+        cofactorMatrix.rawInputMatrix(cofactors);
+        cofactorMatrix = transpose(cofactorMatrix);
+        for (int r = 0; r < cofactorMatrix.getRowNumber(); r++) {
+            for (int c = 0; c < cofactorMatrix.getColumnNumber(); c++) {
+                cofactorMatrix.matrix[r][c] /= det;
+            }
+        }
+
+        A = cofactorMatrix.matrix;
     }
-    adj.rawInputMatrix(temp_matrix);
 
-    std::cout << adj.matrix[0][0] << std::endl;
-    adjoint(matrix, adj);
-    std::cout << adj.matrix[0][0] << std::endl;
-
-    for (int i = 0; i < n; i++) {
-        std::vector<double> new_row;
-        for (int j = 0; j < n; j++) new_row.push_back(adj.matrix[i][j]/double(det));
-        result.push_back(new_row);
-    }
-
-    Matrix resulting_matrix(n, n);
-    resulting_matrix.rawInputMatrix(result);
-    return resulting_matrix;
+    result.rawInputMatrix(A);
+    return result;
 }
-

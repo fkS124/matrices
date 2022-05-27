@@ -85,7 +85,7 @@ int main(int argc, char** argv)
             if (matrices[index].getRowNumber() != matrices[index].getColumnNumber())
                 std::cerr << "Error: passed matrix is invalid." << std::endl;
             else 
-                detMatrix(matrices[index]);
+                determinantMatrix(matrices[index]);
         }
         else if (input == "inv") {
             int index;

@@ -8,17 +8,20 @@
 
 using std::string;
 
-const double SMALL = 1.0E-30;
-
 
 Matrix::Matrix(int n_rows, int n_columns) {
     // get the number of row and columns
     rows = n_rows;
     columns = n_columns;
+
+    for (int i = 0; i < rows; i++) {
+        std::vector<double> new_row;
+        for (int j = 0; j < columns; j++) new_row.push_back(0);
+        matrix.push_back(new_row);
+    }
 }
 
-Matrix::~Matrix() {
-}
+Matrix::~Matrix(){}
 
 
 int Matrix::getRowNumber() {
@@ -47,56 +50,16 @@ void Matrix::showMatrix() {
 
 void Matrix::inputMatrix() {
     for (int row = 0; row < rows; row++) {
-        std::vector<double> new_row;
         for (int col = 0; col < columns; col++) {
-            int col_val;
+            double col_val;
             std::cout << "Enter value of row " << row << " & col " << col << " : ";
             std::cin >> col_val;
-            new_row.push_back(col_val);
+            matrix[row][col] = col_val;
         }
-        matrix.push_back(new_row);
     }
 }
 
 
 void Matrix::rawInputMatrix(const std::vector< std::vector<double> > &new_matrix) {
     matrix = new_matrix;
-}
-
-
-double Matrix::det() {
-    if (rows == 2 && columns == 2) {
-        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
-    }
-
-    int n = matrix.size();
-    double det = 1;
-
-    for (int i = 0; i < n - 1; i++) {
-        int r = i;
-        double maxA = abs(matrix[i][i]);
-        for (int k = i + 1; k < n; k++) {
-            double val = abs( matrix[k][i]);
-            if (val > maxA) {
-                r = k;
-                maxA = val;
-            }
-        }
-        if ( r != i ) {
-            for (int j = i; j < n; j++) std::swap( matrix[i][j], matrix[r][j] );
-            det = -det;
-        }
-
-        double pivot = matrix[i][i];
-        if (abs(pivot) < SMALL) return 0.0;
-
-        for (int z = i + 1; z < n; z++) {
-            double multiple = matrix[z][i] / pivot;
-            for (int j = i; j < n; j++) matrix[z][j] -= multiple * matrix[i][j];
-        }
-        det *= pivot;
-    }
-    det *= matrix[n-1][n-1];
-
-    return det;
 }
