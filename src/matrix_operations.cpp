@@ -8,7 +8,6 @@
 Matrix add(Matrix& matrixA, Matrix& matrixB) {
     int r, c;
     std::vector< std::vector<double> > new_matrix;
-    std::string header;
     
     static int dim1[2] = {matrixA.getRowNumber(), matrixA.getColumnNumber()};
     static int dim2[2] = {matrixB.getRowNumber(), matrixB.getColumnNumber()};
@@ -35,7 +34,6 @@ Matrix add(Matrix& matrixA, Matrix& matrixB) {
 Matrix sub(Matrix& matrixA, Matrix& matrixB) {
     int r, c;
     std::vector< std::vector<double> > new_matrix;
-    std::string header;
     
     static int dim1[2] = {matrixA.getRowNumber(), matrixA.getColumnNumber()};
     static int dim2[2] = {matrixB.getRowNumber(), matrixB.getColumnNumber()};
@@ -62,7 +60,6 @@ Matrix sub(Matrix& matrixA, Matrix& matrixB) {
 Matrix multWithNumber(Matrix& matrix, double n) {
     int r, c;
     std::vector< std::vector<double> > new_matrix;
-    std::string header;
     
 
     for (r = 0; r < matrix.getRowNumber(); r++) {
@@ -81,7 +78,6 @@ Matrix multWithNumber(Matrix& matrix, double n) {
 
 Matrix prodBetweenMatrices(Matrix& matrixA, Matrix& matrixB) {
     std::vector< std::vector<double> > new_matrix;
-    std::string header;
 
     // check compatibility of the two matrices (M1 must have the same number of columns that M2 have of rows.)
     if (matrixA.getColumnNumber() != matrixB.getRowNumber()) {
@@ -127,13 +123,12 @@ void getCofactor(Matrix& matrix, Matrix& temp, int p, int q) {
 
 
 void adjoint(Matrix& matrix, Matrix& adj) {
-    int n = matrix.getRowNumber();
+    int sign, n = matrix.getRowNumber();
+
     if (n == 1) {
         adj.matrix[0][0] = 1;
         return;
     }
-
-    int sign = 1;
 
     // generate the temp matrix 
     Matrix temp(n, n);

@@ -59,13 +59,13 @@ void Matrix::inputMatrix() {
 }
 
 
-void Matrix::rawInputMatrix(std::vector< std::vector<double> > new_matrix) {
+void Matrix::rawInputMatrix(const std::vector< std::vector<double> > new_matrix) {
     matrix = new_matrix;
 }
 
 
 double Matrix::det() {
-    if (rows == columns == 2) {
+    if (rows == 2 && columns == 2) {
         std::cout << matrix[0][0] << " "  << matrix[1][1] << " "  << matrix[0][1] << " " << matrix[1][0] << std::endl;
         return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
     }
