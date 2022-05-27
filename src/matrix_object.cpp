@@ -59,7 +59,7 @@ void Matrix::inputMatrix() {
 }
 
 
-void Matrix::rawInputMatrix(const std::vector< std::vector<double> > new_matrix) {
+void Matrix::rawInputMatrix(const std::vector< std::vector<double> > &new_matrix) {
     matrix = new_matrix;
 }
 
