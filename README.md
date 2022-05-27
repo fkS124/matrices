@@ -7,6 +7,8 @@
     <img src="https://img.shields.io/github/license/fkS124/matrices.svg">
     <img src="https://img.shields.io/tokei/lines/github.com/fkS124/matrices">
     <img src="https://img.shields.io/github/repo-size/fkS124/matrices">
+    <img src="https://api.codiga.io/project/33693/score/svg">
+    <img src="https://api.codiga.io/project/33693/status/svg">
     <br/>
 </div>
 
