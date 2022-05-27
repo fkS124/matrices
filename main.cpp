@@ -32,6 +32,7 @@ int main(int argc, char** argv)
             
             std::cout << getFunc(command) << std::endl;
         }
+        std::cout << "\n";
         
     } while(input != "exit");
 
@@ -61,12 +62,17 @@ word_list scanInput(const string &input)
 
 string getFunc(word_list &command) {
     for (int i = 0; i < commandNumber; i++) {
-        if (commandList[i] == command[0] && command.size() == nArgs[i]+1) {
+        if (commandList[i] == command[0]) {
+            if (command.size() != nArgs[i]+1) {
+                return "Error: invalid arguments passed.";
+            }
             int returned = execFunc(command);
             if (returned == 0)
-                return " ";
+                return "";
             else if (returned == -1)
                 return "Error: index error.";
+            else if (returned == -2)
+                return "Error: matrix's dimensions must be strictly positive integers.";
             else    
                 return "Error: wrong arguments passed.";
         }
@@ -81,7 +87,7 @@ int execFunc(const word_list &command) {
 
     if (mainCommand == "input") {
         int d1 = stoi(command[1]), d2 = stoi(command[2]);
-        if (d1 <= 0 || d2 <= 0) return -1;
+        if (d1 <= 0 || d2 <= 0) return -2;
         Matrix new_matrix(d1, d2);
         new_matrix.inputMatrix();
         matrices.push_back(new_matrix);
@@ -108,7 +114,8 @@ int execFunc(const word_list &command) {
         else if (mainCommand == "inv")
             invMatrix(matrices[idx1], false);
 
-        else if (mainCommand == "det"){}
+        else if (mainCommand == "det")
+            determinantMatrix(matrices[idx1]);
     }
 
     return 0;

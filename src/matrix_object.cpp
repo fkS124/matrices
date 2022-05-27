@@ -42,6 +42,8 @@ void Matrix::inputMatrix() {
             matrix[row][col] = col_val;
         }
     }
+    
+    showMatrix();
 }
 
 
