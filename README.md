@@ -22,15 +22,19 @@ More infos in [Usage](https://github.com/fkS124/matrices#usage) or doing the com
 
 To compile the code using `g++` run :
 ```shell
-g++ main.cpp -o out src/*.cpp
+g++ main.cpp -o ./bin/out src/*.cpp
+```
+or if `make` is installed on your computer (you still need g++) :
+```
+make -f MakeFile
 ```
 
 And then run :
 ```shell
 # on windows
-./out.exe
+./bin/out.exe
 # on linux
-./out.out
+./bin/out.out
 ```
 
 # Usage
