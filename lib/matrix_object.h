@@ -1,25 +1,26 @@
-#include <vector>
+#pragma once 
+
 #include <iostream>
+#include <vector>
 #include <stdlib.h>
-#include <stdio.h>
+#include <string.h>
+#include <cmath>
+#include <algorithm>
 
-
-#ifndef MATRIX_OBJECT_H
-#define MATRIX_OBJECT_H
 class Matrix
 {
     private:
-        int rows = 1;
-        int columns = 1;
+        int rows;
+        int columns;
 
     public:
         std::vector< std::vector<double> > matrix;
 
         // Constructor
-        Matrix(int n_rows, int n_columns);
+        Matrix(const int& = 1, const int& = 1);
+        
         // Destructor
         ~Matrix();
-
 
         // returns the dimension of the matrix
         int getRowNumber();
@@ -34,5 +35,3 @@ class Matrix
         // input by the program of a new matrix
         void rawInputMatrix(const std::vector< std::vector<double> > &new_matrix);
 };
-
-#endif

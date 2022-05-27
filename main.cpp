@@ -1,7 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <string>
-
 #include "lib/matrix_object.h"
 #include "lib/cli_operations.h"
 
@@ -105,11 +101,14 @@ int execFunc(const word_list &command) {
     else if (mainCommand == "show" || mainCommand == "inv" || mainCommand == "det") {
         int idx1 = stoi(command[1]);
         if (!(0 <= idx1 && idx1 < matrices.size())) return -1;
+        
         if (mainCommand == "show")
             matrices[idx1].showMatrix();
+        
         else if (mainCommand == "inv")
             invMatrix(matrices[idx1], false);
-        else if (mainCommand == "det");
+
+        else if (mainCommand == "det"){}
     }
 
     return 0;
