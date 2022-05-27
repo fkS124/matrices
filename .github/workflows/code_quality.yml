@@ -1,3 +1,5 @@
 name: Codiga GitHub action
-uses: codiga/github-action@v1
 on: push
+
+jobs:
+  uses: codiga/github-action@v1
