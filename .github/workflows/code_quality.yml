@@ -1,7 +1,9 @@
-name: Codiga GitHub action
-on: push
+name: Check for code quality
+on: [push, pull_request]
 
 jobs:
   code_quality:
+    name: Codiga GitHub action
+    runs-on: [windows-latest, ubuntu-latest]
     steps:
       - uses: codiga/github-action@v1
