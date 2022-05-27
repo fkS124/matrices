@@ -1,7 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <stdio.h>
-#include <stdlib.h>
 #include "../lib/matrix_object.h"
 #include "../lib/matrix_operations.h"
 
@@ -14,9 +10,9 @@ void showMatrix(std::vector< std::vector<double> > matrix, const std::string &he
 
     // loop through rows and columns of the matrix and prints everything
     for(int row = 0; row < rows; row++) {
-        for (int col = 0; col < columns; col++) {
+        for (int col = 0; col < columns; col++) 
             std::cout << matrix[row][col] << "\t";
-        };
+            
         std::cout << "\n";
     };
 
