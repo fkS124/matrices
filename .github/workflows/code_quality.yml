@@ -2,4 +2,6 @@ name: Codiga GitHub action
 on: push
 
 jobs:
-  uses: codiga/github-action@v1
+  code_quality:
+    steps:
+      - uses: codiga/github-action@v1
