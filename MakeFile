@@ -1,2 +1,2 @@
 all:
-	g++ main.cpp -o ./bin/out ./src/*.cpp -g 
+	g++ main.cpp -o ./bin/out ./src/*.cpp

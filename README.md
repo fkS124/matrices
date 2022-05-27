@@ -35,13 +35,20 @@ And then run :
 
 # Usage
 
-Function | Description
-:-------:| -----------
-`input`  | Allows you to input a matrix of your choice. (First the dimension, then the values)
-`show`   | Shows the matrice of your choice (by giving its index).
-`sum`    | Prints the sum of two matrices.
-`sub`    | Prints the substraction of two matrices.
-`multk`  | Prints the multiplication of a matrix by a real number.
-`product`| Prints the product of two matrices (if they're compatible).
-`det`    | Prints the determinant of the given matrix (if it's a square matrix).
-`exit`   | Exits the program
+You have to run functions inside the mini-shell like following :
+
+```
+>>> func_name arg1 arg2(optional)
+```
+
+Function | Arguments | Description
+:-------:| --------- | ----------- 
+`input`  | ``2 args`` The dimension of your matrix (first the number of rows and then the number of columns.| Allows you to input a matrix of your choice. (First the dimension, then the values)
+`show`   | ``1 arg`` The index of the matrix you want to show. | Shows the matrice of your choice (by giving its index).
+`sum`    | ``2 args`` The indexes of the two matrices. | Prints the sum of two matrices.
+`sub`    | ``2 args`` The indexes of the two matrices| Prints the substraction of two matrices.
+`multk`  | ``2 args`` First the matrix, then the real number. | Prints the multiplication of a matrix by a real number.
+`product`| ``2 args`` The indexes of the two matrices. | Prints the product of two matrices (if they're compatible).
+`det`    | ``1 arg`` The index of the matrix. | Prints the determinant of the given matrix (if it's a square matrix).
+`inv` | `1 arg` The index of the matrix. | Prints the inverse of the given matrix (if possible).
+`exit`   | `0 arg` | Exits the program
