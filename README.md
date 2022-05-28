@@ -26,7 +26,7 @@ g++ main.cpp -o ./bin/out src/*.cpp
 ```
 or if `make` is installed on your computer (you still need g++) :
 ```
-make -f MakeFile
+make
 ```
 
 And then run :
