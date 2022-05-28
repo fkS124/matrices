@@ -1,12 +1,5 @@
-#include <iostream>
-#include <vector>
-#include <stdio.h>
-#include <stdlib.h>
-#include "matrix_object.h"
-
-
-#ifndef MATRIX_OPERATIONS_H
-#define MATRIX_OPERATIONS_H
+#pragma once
+#include "./matrix_object.h"
 
 void addMatrices(Matrix& matrixA, Matrix& matrixB, bool save); 
 void subMatrices(Matrix& matrixA, Matrix &matrixB, bool save);
@@ -15,5 +8,4 @@ void prodMatrices(Matrix& matrixA, Matrix& matrixB, bool save);
 void showMatrix(std::vector< std::vector<double> > matrix, std::string header);
 void determinantMatrix(const Matrix& matrix);
 void invMatrix(Matrix& matrix, bool save);
-
-#endif
+void powMatrix(Matrix& matrix, int k, bool save);

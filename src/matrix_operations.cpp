@@ -1,42 +1,38 @@
-#include <iostream>
-#include <vector>
-#include <stdio.h>
-#include <stdlib.h>
-#include <cmath>
 #include "../lib/matrix_object.h"
-
 
 using vec = std::vector<double>;
 using matrix_t = std::vector<vec>;
 
-
 Matrix add(Matrix& A, Matrix& B) {
     // Compute the sum of two matrices
-    Matrix result(A.getRowNumber(), A.getColumnNumber());
-
     if (A.getRowNumber() != B.getRowNumber() || A.getColumnNumber() != B.getColumnNumber()) {
         std::cerr << "The two matrices haven't the same dimensions. Suming the two is impossible." << std::endl;
         return Matrix(0, 0);
     }
 
+    Matrix result(A.getRowNumber(), A.getColumnNumber());
+
     for (int r = 0; r < result.getRowNumber(); r++) {
-        for (int c = 0; c < result.getColumnNumber(); c++) result.matrix[r][c] = A.matrix[r][c] + B.matrix[r][c];
+        for (int c = 0; c < result.getColumnNumber(); c++) 
+            result.matrix[r][c] = A.matrix[r][c] + B.matrix[r][c];
     }
+
     return result;
 }
 
 
 Matrix sub(Matrix& A, Matrix& B) {
     // Compute the substraction between two matrices
-    Matrix result(A.getRowNumber(), A.getColumnNumber());
-
     if (A.getRowNumber() != B.getRowNumber() || A.getColumnNumber() != B.getColumnNumber()) {
         std::cerr << "The two matrices haven't the same dimensions. Suming the two is impossible." << std::endl;
         return Matrix(0, 0);
     }
 
+    Matrix result(A.getRowNumber(), A.getColumnNumber());
+
     for (int r = 0; r < result.getRowNumber(); r++) {
-        for (int c = 0; c < result.getColumnNumber(); c++) result.matrix[r][c] = A.matrix[r][c] - B.matrix[r][c];
+        for (int c = 0; c < result.getColumnNumber(); c++) 
+            result.matrix[r][c] = A.matrix[r][c] - B.matrix[r][c];
     }
     return result;
 }
@@ -47,8 +43,10 @@ Matrix multWithNumber(Matrix& A, double n) {
     Matrix result(A.getRowNumber(), A.getColumnNumber());
 
     for (int r = 0; r < A.getRowNumber(); r++) {
-        for (int c = 0; c < A.getColumnNumber(); c++) result.matrix[r][c] = A.matrix[r][c] * n;
+        for (int c = 0; c < A.getColumnNumber(); c++) 
+            result.matrix[r][c] = A.matrix[r][c] * n;
     }
+
     return result;
 }
 
@@ -66,12 +64,35 @@ Matrix prodBetweenMatrices(Matrix& A, Matrix& B) {
     // compute the product
     for (int i = 0; i < A.getRowNumber(); i++) {
         for (int j = 0; j < B.getColumnNumber(); j++) {
+            
             double sum = 0; 
-            for (int k = 0; k < A.getColumnNumber(); k++) {
+            for (int k = 0; k < A.getColumnNumber(); k++) 
                 sum += A.matrix[i][k] * B.matrix[k][j];
-            }
+    
             result.matrix[i][j] = sum;
         }
+    }
+
+    return result;
+}
+
+
+Matrix powerMatrix(Matrix& A, int k) {
+    Matrix result(A.getRowNumber(), A.getRowNumber());
+    result.rawInputMatrix(A.matrix);
+
+    if (k < 1) {
+        std::cerr << "The power must be greater than 0" << std::endl;
+        return Matrix(0, 0);
+    }
+
+    if (A.getRowNumber() != A.getColumnNumber()) {
+        std::cerr << "The matrix is not squared. Power operation can't be done." << std::endl;
+        return Matrix(0, 0);
+    }
+
+    for (int i = 1; i < k; i++) {
+        result.rawInputMatrix(prodBetweenMatrices(result, A).matrix);
     }
 
     return result;
@@ -83,9 +104,8 @@ Matrix transpose(Matrix &A) {
     Matrix result(A.getRowNumber(), A.getColumnNumber());
 
     for (int i = 0; i < result.getRowNumber(); i++) {
-        for (int j = 0; j < result.getColumnNumber(); j++) {
+        for (int j = 0; j < result.getColumnNumber(); j++)
             result.matrix[j][i] = A.matrix[i][j];
-        }
     }
 
     return result;
@@ -134,18 +154,17 @@ double detMatrix(Matrix matrix) {
 
 Matrix matrixInversion(Matrix &matrix)
 {
-    // Calculates if possible the inverse of a matrix
-    int n = matrix.getRowNumber();
-    Matrix result(n, n);
-    matrix_t A = result.matrix;
-    matrix_t m = matrix.matrix;
-
     double det = detMatrix(matrix);
     if (det == 0) {
         std::cerr << "Inversion is impossible" << std::endl;
         return Matrix(0, 0);
     }
 
+    // Calculates if possible the inverse of a matrix
+    int n = matrix.getRowNumber();
+    Matrix result(n, n);
+    matrix_t A = result.matrix;
+    matrix_t m = matrix.matrix;
 
     if (n == 2) {
         A[0][0] = m[1][1]/det;

@@ -32,3 +32,5 @@
 *.exe
 
 *.json
+
+/.vscode/*

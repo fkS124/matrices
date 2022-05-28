@@ -1,7 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <stdio.h>
-#include <stdlib.h>
 #include "../lib/matrix_object.h"
 #include "../lib/matrix_operations.h"
 
@@ -14,9 +10,9 @@ void showMatrix(std::vector< std::vector<double> > matrix, const std::string &he
 
     // loop through rows and columns of the matrix and prints everything
     for(int row = 0; row < rows; row++) {
-        for (int col = 0; col < columns; col++) {
+        for (int col = 0; col < columns; col++) 
             std::cout << matrix[row][col] << "\t";
-        };
+            
         std::cout << "\n";
     };
 
@@ -73,6 +69,18 @@ void invMatrix(Matrix& matrix, bool save) {
     Matrix result = matrixInversion(matrix);
     if (result.getRowNumber() != 0 && result.getColumnNumber() != 0)
         showMatrix(result.matrix, std::string("The inverted matrix is :"));
+
+    if (save == true) {
+        // save the result
+    }
+}
+
+
+void powMatrix(Matrix& matrix, int k, bool save) {
+    Matrix result = powerMatrix(matrix, k);
+
+    if (result.getRowNumber() != 0 && result.getColumnNumber() != 0)
+        showMatrix(result.matrix, std::string("The powered matrix is :"));
 
     if (save == true) {
         // save the result
