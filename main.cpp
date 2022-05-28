@@ -5,9 +5,9 @@ using std::string, std::stoi;
 using word_list = std::vector<string>;
 using matrix_list = std::vector<Matrix>;
 
-const int commandNumber = 9;
-string commandList[commandNumber] = {"input", "sum", "subtract", "multk", "product", "show", "det", "inv", "exit"};
-int nArgs[commandNumber] = {2, 2, 2, 2, 2, 1, 1, 1, 0};
+const int commandNumber = 10;
+string commandList[commandNumber] = {"input", "sum", "subtract", "multk", "product", "show", "det", "inv", "pow", "exit"};
+int nArgs[commandNumber] = {2, 2, 2, 2, 2, 1, 1, 1, 2, 0};
 matrix_list matrices;
 
 word_list scanInput(const string &input);
@@ -101,7 +101,7 @@ int execFunc(const word_list &command) {
         new_matrix.inputMatrix();
         matrices.push_back(new_matrix);
     }
-    else if (mainCommand == "sum" || mainCommand == "subtract" || mainCommand == "product" || mainCommand == "multk") {
+    else if (mainCommand == "sum" || mainCommand == "subtract" || mainCommand == "product" || mainCommand == "multk" || mainCommand == "pow") {
         int idx1 = stoi(command[1]), idx2 = stoi(command[2]);
         if (!(0 <= idx1 && idx1 < matrices.size() || 0 <= idx2 && idx2 < matrices.size() )) return -1;
         if (mainCommand == "sum")
@@ -112,6 +112,8 @@ int execFunc(const word_list &command) {
             prodMatrices(matrices[idx1], matrices[idx2], false);
         else if (mainCommand == "multk")
             multkMatrix(matrices[idx1], idx2, false);
+        else if (mainCommand == "pow")
+            powMatrix(matrices[idx1], idx2, false);
     }
     else if (mainCommand == "show" || mainCommand == "inv" || mainCommand == "det") {
         int idx1 = stoi(command[1]);

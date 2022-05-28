@@ -55,4 +55,5 @@ Function | Arguments | Description
 `product`| ``2 args`` The indexes of the two matrices. | Prints the product of two matrices (if they're compatible).
 `det`    | ``1 arg`` The index of the matrix. | Prints the determinant of the given matrix (if it's a square matrix).
 `inv` | `1 arg` The index of the matrix. | Prints the inverse of the given matrix (if possible).
+`pow` | `2 args` The index of the matrix and the power you want to calculate. | Prints the given matrix put to a given power.
 `exit`   | `0 arg` | Exits the program

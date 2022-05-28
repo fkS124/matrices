@@ -9,3 +9,4 @@ Matrix matrixInversion(Matrix &matrix);
 Matrix transpose(Matrix &matrix);
 Matrix smallerMatrix(Matrix &matrix, int i, int j);
 double detMatrix(Matrix matrix);
+Matrix powerMatrix(Matrix& A, int k);

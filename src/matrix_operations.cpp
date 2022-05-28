@@ -77,6 +77,28 @@ Matrix prodBetweenMatrices(Matrix& A, Matrix& B) {
 }
 
 
+Matrix powerMatrix(Matrix& A, int k) {
+    Matrix result(A.getRowNumber(), A.getRowNumber());
+    result.rawInputMatrix(A.matrix);
+
+    if (k < 1) {
+        std::cerr << "The power must be greater than 0" << std::endl;
+        return Matrix(0, 0);
+    }
+
+    if (A.getRowNumber() != A.getColumnNumber()) {
+        std::cerr << "The matrix is not squared. Power operation can't be done." << std::endl;
+        return Matrix(0, 0);
+    }
+
+    for (int i = 1; i < k; i++) {
+        result.rawInputMatrix(prodBetweenMatrices(result, A).matrix);
+    }
+
+    return result;
+}
+
+
 Matrix transpose(Matrix &A) {
     // Transpose the given matrix
     Matrix result(A.getRowNumber(), A.getColumnNumber());

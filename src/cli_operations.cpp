@@ -74,3 +74,15 @@ void invMatrix(Matrix& matrix, bool save) {
         // save the result
     }
 }
+
+
+void powMatrix(Matrix& matrix, int k, bool save) {
+    Matrix result = powerMatrix(matrix, k);
+
+    if (result.getRowNumber() != 0 && result.getColumnNumber() != 0)
+        showMatrix(result.matrix, std::string("The powered matrix is :"));
+
+    if (save == true) {
+        // save the result
+    }
+}
