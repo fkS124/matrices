@@ -18,21 +18,30 @@ int main(int argc, char** argv)
 {
     // create the string that will be used as an input
     string input;
+    bool nothing_printed = false;
 
     // program's main loop
     do {
-        std::cout << ">>> ";
+        if (nothing_printed == false)
+            std::cout << ">>> ";
         std::getline(std::cin, input);
+
+        nothing_printed = false;
 
         if (input == "exit") 
             break;
         
         else if (input != "") {
             word_list command = scanInput(input);
-            
-            std::cout << getFunc(command) << std::endl;
+             
+            string result = getFunc(command);
+            if (result != "") {
+                std::cout << result << std::endl;
+            }
         }
-        std::cout << "\n";
+        else {
+            nothing_printed = true;
+        }
         
     } while(input != "exit");
 
