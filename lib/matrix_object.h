@@ -10,10 +10,12 @@
 class Matrix
 {
     private:
+        bool calculated_det = false;
+        double determinant;
+    public:
         int rows;
         int columns;
 
-    public:
         std::vector< std::vector<double> > matrix;
 
         // Constructor
@@ -21,10 +23,6 @@ class Matrix
         
         // Destructor
         ~Matrix();
-
-        // returns the dimension of the matrix
-        int getRowNumber();
-        int getColumnNumber();
 
         // prints the matrix in a nice way
         void showMatrix();
@@ -34,4 +32,14 @@ class Matrix
 
         // input by the program of a new matrix
         void rawInputMatrix(const std::vector< std::vector<double> > &new_matrix);
+        
+        Matrix operator+(const Matrix& B);
+        Matrix operator-(const Matrix& B);
+        Matrix operator*(const Matrix& B);
+        Matrix operator*(const int k);
+        Matrix power(const int k);
+        Matrix inversion();
+        Matrix transpose();
+
+        double det();
 };
