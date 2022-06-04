@@ -1,5 +1,4 @@
 #include "../lib/matrix_object.h"
-#include "../lib/matrix_operations.h"
 
 
 void showMatrix(std::vector< std::vector<double> > matrix, const std::string &header) {
@@ -21,7 +20,7 @@ void showMatrix(std::vector< std::vector<double> > matrix, const std::string &he
 
 
 void addMatrices(Matrix& matrixA, Matrix& matrixB, bool save) {
-    Matrix result = add(matrixA, matrixB);
+    Matrix result = matrixA + matrixB;
     showMatrix(result.matrix, std::string("The result of the sum is :"));
 
     if (save == true) {
@@ -31,7 +30,7 @@ void addMatrices(Matrix& matrixA, Matrix& matrixB, bool save) {
 
 
 void subMatrices(Matrix& matrixA, Matrix& matrixB, bool save) {
-    Matrix result = sub(matrixA, matrixB);
+    Matrix result = matrixA - matrixB;
     showMatrix(result.matrix, std::string("The result of the substraction is :"));
 
     if (save == true) {
@@ -41,7 +40,7 @@ void subMatrices(Matrix& matrixA, Matrix& matrixB, bool save) {
 
 
 void multkMatrix(Matrix& matrixA, double n, bool save) {
-    Matrix result = multWithNumber(matrixA, n);
+    Matrix result = matrixA * n;
     showMatrix(result.matrix, std::string("The result of the multiplication is :"));
 
     if (save == true) {
@@ -51,7 +50,7 @@ void multkMatrix(Matrix& matrixA, double n, bool save) {
 
 
 void prodMatrices(Matrix& matrixA, Matrix& matrixB, bool save) {
-    Matrix result = prodBetweenMatrices(matrixA, matrixB);
+    Matrix result = matrixA * matrixB;
     showMatrix(result.matrix, std::string("The result of the product is :"));
 
     if (save == true) {
@@ -60,14 +59,14 @@ void prodMatrices(Matrix& matrixA, Matrix& matrixB, bool save) {
 }
 
 
-void determinantMatrix(const Matrix& matrix) {
-    std::cout << "The determinant of this matrix is : " << detMatrix(matrix) << std::endl;
+void determinantMatrix(Matrix& matrix) {
+    std::cout << "The determinant of this matrix is : " << matrix.det() << std::endl;
 } 
 
 
 void invMatrix(Matrix& matrix, bool save) {
-    Matrix result = matrixInversion(matrix);
-    if (result.getRowNumber() != 0 && result.getColumnNumber() != 0)
+    Matrix result = matrix.power(-1);
+    if (result.rows != 0 && result.columns != 0)
         showMatrix(result.matrix, std::string("The inverted matrix is :"));
 
     if (save == true) {
@@ -77,9 +76,9 @@ void invMatrix(Matrix& matrix, bool save) {
 
 
 void powMatrix(Matrix& matrix, int k, bool save) {
-    Matrix result = powerMatrix(matrix, k);
+    Matrix result = matrix.power(k);
 
-    if (result.getRowNumber() != 0 && result.getColumnNumber() != 0)
+    if (result.rows != 0 && result.columns != 0)
         showMatrix(result.matrix, std::string("The powered matrix is :"));
 
     if (save == true) {
