@@ -1,10 +1,6 @@
 #include "../lib/matrix_object.h"
-using std::string;
-using std::vector;
-using vec = vector<double>;
-using matrix_t = vector<vec>;
 
-
+/* ------------- INPUT & UI ------------------ */
 
 Matrix::Matrix(const int& n_rows, const int& n_columns) {
     // get the number of row and columns
@@ -15,36 +11,39 @@ Matrix::Matrix(const int& n_rows, const int& n_columns) {
         matrix.push_back(vec(n_columns, 0));
 }
 
+
+Matrix::Matrix(matrix_t matrix_input) {
+    rows = matrix_input.size();
+    columns = matrix_input[0].size();
+    matrix = matrix_input;
+}
+
+
 Matrix::~Matrix(){}
 
 void Matrix::showMatrix() {
-    std::cout << "Your " << rows << "x" << columns << " matrix ------------" << std::endl;
+    cout << "Your " << rows << "x" << columns << " matrix ------------" << endl;
 
     // loop through rows and columns of the matrix and prints everything
     for(int row = 0; row < rows; row++) {
-        for (int col = 0; col < columns; col++) 
-            std::cout << matrix[row][col] << "\t";
-
-        std::cout << std::endl;
+        for (int col = 0; col < columns; col++) cout << matrix[row][col] << "\t";
+        cout << endl;
     };
 
-    std::cout << "----------------------------\n";
+    cout << "----------------------------\n";
 }
 
 void Matrix::inputMatrix() {
     for (int row = 0; row < rows; row++) {
         for (int col = 0; col < columns; col++) {
             double col_val;
-            std::cout << "Enter value of row " << row << " & col " << col << " : ";
-            std::cin >> col_val;
+            cout << "Enter value of row " << row << " & col " << col << " : ";
+            cin >> col_val;
             matrix[row][col] = col_val;
         }
     }
-    
     showMatrix();
 }
-
-void Matrix::rawInputMatrix(const vector< vector<double> > &new_matrix) { matrix = new_matrix; }
 
 /* ------------------------ OPERATIONS --------------------------------- */
 
@@ -115,11 +114,10 @@ Matrix Matrix::operator*(const int k) {
 }
 
 Matrix powerMatrix(Matrix& A, int k) {
-    Matrix result(A.rows, A.columns);
-    result.rawInputMatrix(A.matrix);
+    Matrix result(A.matrix);
 
     if (A.rows != A.columns) return Matrix(0, 0);
-    for (int i = 1; i < k; i++) result.rawInputMatrix((result * A).matrix);
+    for (int i = 1; i < k; i++) result.matrix = (result * A).matrix;
 
     return result;
 }
@@ -223,8 +221,7 @@ Matrix Matrix::inversion()
             cofactors.push_back(cofactorRow);
         }
 
-        Matrix cofactorMatrix(cofactors.size(), cofactors[0].size());
-        cofactorMatrix.rawInputMatrix(cofactors);
+        Matrix cofactorMatrix(cofactors);
         cofactorMatrix = cofactorMatrix.transpose();
         for (int r = 0; r < cofactorMatrix.rows; r++) {
             for (int c = 0; c < cofactorMatrix.columns; c++) {
@@ -235,7 +232,7 @@ Matrix Matrix::inversion()
         A = cofactorMatrix.matrix;
     }
 
-    result.rawInputMatrix(A);
+    result.matrix = A;
     return result;
 }
 
