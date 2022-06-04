@@ -1,5 +1,4 @@
 #include "../lib/matrix_object.h"
-#include "../lib/matrix_operations.h"
 
 
 void showMatrix(std::vector< std::vector<double> > matrix, const std::string &header) {
